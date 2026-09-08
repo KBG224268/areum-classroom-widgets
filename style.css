@@ -14,14 +14,7 @@ body {
     height: 100%;
     overflow: hidden;
 
-    background: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-    html,
-    body {
-        background: #191919;
-    }
+    background: #191919;
 }
 
 body {
