@@ -1,54 +1,69 @@
+/* =========================================
+   AREUM CLASSROOM CLOCK
+   Responsive Notion Embed Version
+========================================= */
+
 * {
     box-sizing: border-box;
 }
 
+html,
 body {
     margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 
-    width: 100vw;
-    height: 100vh;
+    background: transparent !important;
+}
 
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: transparent;
 }
 
 
-/* =========================
-   전체 외곽 : 다크 우드
-========================= */
+/*
+    iframe 안에서 가로/세로 중 짧은 쪽을 기준으로
+    시계 전체 크기를 결정한다.
 
+    최대 크기: 360px
+    작은 iframe에서는 자동 축소.
+*/
 .clock {
+    --clock-size: min(88vmin, 360px);
+
     position: relative;
 
-    width: 360px;
-    height: 360px;
+    width: var(--clock-size);
+    height: var(--clock-size);
 
-    padding: 24px;
+    flex: 0 0 auto;
+
+    padding: calc(var(--clock-size) * 0.06667);
 
     border-radius: 50%;
 
-    /*
-        어두운 목재 레이어
-        결이 완전히 사실적일 필요는 없고
-        "검정이 아니라 나무"로 읽히게
-    */
+    /* 어두운 목재 */
     background:
-
         radial-gradient(
             circle at 28% 22%,
-            rgba(255,255,255,0.14),
+            rgba(255, 255, 255, 0.14),
             transparent 24%
         ),
 
         repeating-linear-gradient(
             108deg,
-            rgba(255,255,255,0.018) 0px,
-            rgba(255,255,255,0.018) 2px,
-            rgba(0,0,0,0.04) 3px,
-            rgba(0,0,0,0.04) 7px
+            rgba(255, 255, 255, 0.018) 0px,
+            rgba(255, 255, 255, 0.018)
+                calc(var(--clock-size) * 0.0056),
+
+            rgba(0, 0, 0, 0.04)
+                calc(var(--clock-size) * 0.0083),
+
+            rgba(0, 0, 0, 0.04)
+                calc(var(--clock-size) * 0.0194)
         ),
 
         radial-gradient(
@@ -60,39 +75,48 @@ body {
         );
 
     box-shadow:
+        0 calc(var(--clock-size) * 0.0556)
+          calc(var(--clock-size) * 0.0889)
+          rgba(0, 0, 0, 0.30),
 
-        /* 아래로 떨어지는 그림자 */
-        0 20px 32px rgba(0,0,0,0.30),
+        0 calc(var(--clock-size) * 0.0139)
+          calc(var(--clock-size) * 0.025)
+          rgba(0, 0, 0, 0.22),
 
-        0 5px 9px rgba(0,0,0,0.22),
+        inset
+          calc(var(--clock-size) * 0.0139)
+          calc(var(--clock-size) * 0.0139)
+          calc(var(--clock-size) * 0.0194)
+          rgba(255, 255, 255, 0.07),
 
-        /* 나무 프레임 볼륨 */
-        inset 5px 5px 7px rgba(255,255,255,0.07),
-
-        inset -7px -8px 12px rgba(0,0,0,0.55);
-
+        inset
+          calc(var(--clock-size) * -0.0194)
+          calc(var(--clock-size) * -0.0222)
+          calc(var(--clock-size) * 0.0333)
+          rgba(0, 0, 0, 0.55);
 }
 
 
-/* 나무에 얹힌 아주 얇은 유광 */
+/* 나무 표면의 은은한 광택 */
 .clock::before {
     content: "";
 
     position: absolute;
 
-    left: 34px;
-    top: 15px;
+    left: calc(var(--clock-size) * 0.0944);
+    top: calc(var(--clock-size) * 0.0417);
 
-    width: 220px;
-    height: 70px;
+    width: calc(var(--clock-size) * 0.6111);
+    height: calc(var(--clock-size) * 0.1944);
 
     border-radius: 50%;
 
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.10),
-        rgba(255,255,255,0)
-    );
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.10),
+            rgba(255, 255, 255, 0)
+        );
 
     transform: rotate(-9deg);
 
@@ -100,20 +124,19 @@ body {
 }
 
 
-/* =========================
-   안쪽 금속 테두리
-========================= */
+/* =========================================
+   METAL RING
+========================================= */
 
 .metal-ring {
     width: 100%;
     height: 100%;
 
-    padding: 8px;
+    padding: calc(var(--clock-size) * 0.0222);
 
     border-radius: 50%;
 
     background:
-
         linear-gradient(
             135deg,
             #dfd9ca 0%,
@@ -125,18 +148,26 @@ body {
         );
 
     box-shadow:
+        0 0 calc(var(--clock-size) * 0.0056)
+            rgba(0, 0, 0, 0.8),
 
-        0 0 2px rgba(0,0,0,0.8),
+        inset
+            calc(var(--clock-size) * 0.0028)
+            calc(var(--clock-size) * 0.0028)
+            calc(var(--clock-size) * 0.0056)
+            rgba(255, 255, 255, 0.8),
 
-        inset 1px 1px 2px rgba(255,255,255,0.8),
-
-        inset -2px -2px 3px rgba(0,0,0,0.5);
+        inset
+            calc(var(--clock-size) * -0.0056)
+            calc(var(--clock-size) * -0.0056)
+            calc(var(--clock-size) * 0.0083)
+            rgba(0, 0, 0, 0.5);
 }
 
 
-/* =========================
-   시계 문자판
-========================= */
+/* =========================================
+   CLOCK FACE
+========================================= */
 
 .face {
     position: relative;
@@ -149,10 +180,9 @@ body {
     border-radius: 50%;
 
     background:
-
         radial-gradient(
             circle at 45% 38%,
-            rgba(255,255,255,0.6),
+            rgba(255, 255, 255, 0.60),
             transparent 53%
         ),
 
@@ -164,39 +194,36 @@ body {
         );
 
     box-shadow:
+        inset 0 0
+            calc(var(--clock-size) * 0.0417)
+            rgba(70, 55, 35, 0.28),
 
-        inset 0 0 15px rgba(70,55,35,0.28),
-
-        inset 0 0 2px rgba(0,0,0,0.6);
+        inset 0 0
+            calc(var(--clock-size) * 0.0056)
+            rgba(0, 0, 0, 0.6);
 }
 
 
-/* =========================
-   60개 분 눈금
-========================= */
+/* =========================================
+   MINUTE TICKS
+========================================= */
 
 .minute-ticks {
     position: absolute;
 
-    inset: 15px;
+    inset: calc(var(--clock-size) * 0.0417);
 
     border-radius: 50%;
 
     background:
         repeating-conic-gradient(
             from 0deg,
-
-            rgba(36,32,27,0.85) 0deg,
-            rgba(36,32,27,0.85) 0.8deg,
-
+            rgba(36, 32, 27, 0.85) 0deg,
+            rgba(36, 32, 27, 0.85) 0.8deg,
             transparent 0.8deg,
             transparent 6deg
         );
 
-    /*
-        중앙을 뚫어서
-        가장자리 눈금만 남김
-    */
     -webkit-mask:
         radial-gradient(
             circle,
@@ -221,24 +248,22 @@ body {
 }
 
 
-/* =========================
-   12개 정시 눈금
-========================= */
+/* =========================================
+   HOUR TICKS
+========================================= */
 
 .hour-ticks {
     position: absolute;
 
-    inset: 12px;
+    inset: calc(var(--clock-size) * 0.0333);
 
     border-radius: 50%;
 
     background:
         repeating-conic-gradient(
             from 0deg,
-
             #25211c 0deg,
             #25211c 2deg,
-
             transparent 2deg,
             transparent 30deg
         );
@@ -267,18 +292,15 @@ body {
 }
 
 
-/* =========================
-   숫자
-========================= */
+/* =========================================
+   NUMBERS
+========================================= */
 
 .number {
     position: absolute;
 
     transform: translate(-50%, -50%);
 
-    /*
-        웹폰트 없이도 최대한 클래식하게
-    */
     font-family:
         Baskerville,
         "Palatino Linotype",
@@ -287,22 +309,23 @@ body {
         "Times New Roman",
         serif;
 
-    font-size: 37px;
+    /*
+        기존 37px을 시계 크기에 맞춰 함께 축소
+    */
+    font-size: calc(var(--clock-size) * 0.1028);
 
     font-weight: 400;
-
     line-height: 1;
 
     color: #27231f;
 
     text-shadow:
-        0 1px 0 rgba(255,255,255,0.35);
+        0 calc(var(--clock-size) * 0.0028) 0
+        rgba(255, 255, 255, 0.35);
 
     z-index: 5;
 }
 
-
-/* 조금 더 바깥쪽에 배치 */
 
 .n12 { left: 50%; top: 13%; }
 
@@ -329,9 +352,9 @@ body {
 .n11 { left: 30%; top: 18%; }
 
 
-/* =========================
-   Areum 브랜드
-========================= */
+/* =========================================
+   AREUM BRAND
+========================================= */
 
 .brand {
     position: absolute;
@@ -341,11 +364,11 @@ body {
 
     transform: translateX(-50%);
 
-    width: 120px;
+    width: calc(var(--clock-size) * 0.3333);
 
     text-align: center;
 
-    color: rgba(44,39,33,0.70);
+    color: rgba(44, 39, 33, 0.70);
 
     z-index: 5;
 }
@@ -357,30 +380,37 @@ body {
         Georgia,
         serif;
 
-    font-size: 15px;
+    font-size: calc(var(--clock-size) * 0.0417);
 
     font-style: italic;
 
-    letter-spacing: 0.4px;
+    letter-spacing:
+        calc(var(--clock-size) * 0.0011);
 }
 
 
 .brand-sub {
-    margin-top: 3px;
+    margin-top:
+        calc(var(--clock-size) * 0.0083);
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-    font-size: 5px;
+    font-size:
+        calc(var(--clock-size) * 0.0139);
 
-    letter-spacing: 2.2px;
+    letter-spacing:
+        calc(var(--clock-size) * 0.0061);
 
     opacity: 0.72;
 }
 
 
-/* =========================
-   시침 / 분침
-========================= */
+/* =========================================
+   HANDS
+========================================= */
 
 .hand {
     position: absolute;
@@ -396,9 +426,6 @@ body {
 
     z-index: 8;
 
-    /*
-        위로 갈수록 조금 좁아지는 형태
-    */
     clip-path:
         polygon(
             36% 0%,
@@ -419,28 +446,35 @@ body {
 
     filter:
         drop-shadow(
-            2px 3px 1.5px rgba(0,0,0,0.25)
+            calc(var(--clock-size) * 0.0056)
+            calc(var(--clock-size) * 0.0083)
+            calc(var(--clock-size) * 0.0042)
+            rgba(0, 0, 0, 0.25)
         );
 }
 
 
-/* 짧고 조금 두꺼운 시침 */
 .hour-hand {
-    width: 15px;
-    height: 72px;
+    width:
+        calc(var(--clock-size) * 0.0417);
+
+    height:
+        calc(var(--clock-size) * 0.20);
 }
 
 
-/* 길고 가는 분침 */
 .minute-hand {
-    width: 10px;
-    height: 105px;
+    width:
+        calc(var(--clock-size) * 0.0278);
+
+    height:
+        calc(var(--clock-size) * 0.2917);
 }
 
 
-/* =========================
-   초침
-========================= */
+/* =========================================
+   SECOND HAND
+========================================= */
 
 .second-hand {
     position: absolute;
@@ -448,8 +482,11 @@ body {
     left: 50%;
     bottom: 50%;
 
-    width: 2px;
-    height: 119px;
+    width:
+        calc(var(--clock-size) * 0.0056);
+
+    height:
+        calc(var(--clock-size) * 0.3306);
 
     transform-origin: 50% 100%;
 
@@ -466,18 +503,22 @@ body {
         );
 
     box-shadow:
-        1px 2px 1px rgba(0,0,0,0.18);
+        calc(var(--clock-size) * 0.0028)
+        calc(var(--clock-size) * 0.0056)
+        calc(var(--clock-size) * 0.0028)
+        rgba(0, 0, 0, 0.18);
 
     z-index: 9;
 }
 
 
-/* 중심 반대쪽 초침 꼬리 */
 .second-tail {
     position: absolute;
 
-    width: 2px;
-    height: 32px;
+    width: 100%;
+
+    height:
+        calc(var(--clock-size) * 0.0889);
 
     left: 0;
     top: 100%;
@@ -492,9 +533,9 @@ body {
 }
 
 
-/* =========================
-   중심 금속 축
-========================= */
+/* =========================================
+   CENTER PIN
+========================================= */
 
 .center-pin {
     position: absolute;
@@ -502,15 +543,17 @@ body {
     left: 50%;
     top: 50%;
 
-    width: 16px;
-    height: 16px;
+    width:
+        calc(var(--clock-size) * 0.0444);
+
+    height:
+        calc(var(--clock-size) * 0.0444);
 
     transform: translate(-50%, -50%);
 
     border-radius: 50%;
 
     background:
-
         radial-gradient(
             circle at 32% 28%,
             #dbc783,
@@ -520,15 +563,17 @@ body {
         );
 
     box-shadow:
-        0 2px 3px rgba(0,0,0,0.45);
+        0 calc(var(--clock-size) * 0.0056)
+        calc(var(--clock-size) * 0.0083)
+        rgba(0, 0, 0, 0.45);
 
     z-index: 12;
 }
 
 
-/* =========================
-   유리판 전체
-========================= */
+/* =========================================
+   GLASS
+========================================= */
 
 .glass-shade {
     position: absolute;
@@ -538,20 +583,26 @@ body {
     border-radius: 50%;
 
     background:
-
         linear-gradient(
             115deg,
-            rgba(255,255,255,0.10),
+            rgba(255, 255, 255, 0.10),
             transparent 35%,
             transparent 62%,
-            rgba(255,255,255,0.04)
+            rgba(255, 255, 255, 0.04)
         );
 
     box-shadow:
+        inset
+            calc(var(--clock-size) * 0.0278)
+            calc(var(--clock-size) * 0.0194)
+            calc(var(--clock-size) * 0.0444)
+            rgba(255, 255, 255, 0.05),
 
-        inset 10px 7px 16px rgba(255,255,255,0.05),
-
-        inset -8px -10px 15px rgba(0,0,0,0.05);
+        inset
+            calc(var(--clock-size) * -0.0222)
+            calc(var(--clock-size) * -0.0278)
+            calc(var(--clock-size) * 0.0417)
+            rgba(0, 0, 0, 0.05);
 
     pointer-events: none;
 
@@ -559,25 +610,28 @@ body {
 }
 
 
-/* =========================
-   형광등 유리 반사
-========================= */
+/* =========================================
+   FLUORESCENT LIGHT REFLECTION
+========================================= */
 
 .light-reflection {
     position: absolute;
 
-    height: 17px;
+    height:
+        calc(var(--clock-size) * 0.0472);
 
-    border-radius: 3px;
+    border-radius:
+        calc(var(--clock-size) * 0.0083);
 
     background:
         linear-gradient(
             to bottom,
-            rgba(255,255,245,0.27),
-            rgba(255,255,245,0.08)
+            rgba(255, 255, 245, 0.22),
+            rgba(255, 255, 245, 0.055)
         );
 
-    filter: blur(0.5px);
+    filter:
+        blur(calc(var(--clock-size) * 0.0014));
 
     pointer-events: none;
 
@@ -586,45 +640,59 @@ body {
 
 
 .light-one {
-    width: 96px;
+    width:
+        calc(var(--clock-size) * 0.2667);
 
-    left: 16px;
-    top: 94px;
+    left:
+        calc(var(--clock-size) * 0.0444);
+
+    top:
+        calc(var(--clock-size) * 0.2611);
 
     transform: rotate(2deg);
 }
 
 
 .light-two {
-    width: 76px;
+    width:
+        calc(var(--clock-size) * 0.2111);
 
-    right: 22px;
-    top: 121px;
+    right:
+        calc(var(--clock-size) * 0.0611);
+
+    top:
+        calc(var(--clock-size) * 0.3361);
 
     transform: rotate(-1deg);
 }
 
 
-/* =========================
-   노을빛 반사
-========================= */
+/* =========================================
+   SUNSET REFLECTION
+========================================= */
 
 .sunset-reflection {
     position: absolute;
 
-    width: 190px;
-    height: 135px;
+    width:
+        calc(var(--clock-size) * 0.5278);
 
-    left: -55px;
-    bottom: -20px;
+    height:
+        calc(var(--clock-size) * 0.375);
+
+    left:
+        calc(var(--clock-size) * -0.1528);
+
+    bottom:
+        calc(var(--clock-size) * -0.0556);
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             ellipse,
-            rgba(210,132,66,0.11),
-            rgba(190,103,48,0.045) 45%,
+            rgba(210, 132, 66, 0.11),
+            rgba(190, 103, 48, 0.045) 45%,
             transparent 72%
         );
 
@@ -633,4 +701,21 @@ body {
     pointer-events: none;
 
     z-index: 14;
+}
+
+
+/* =========================================
+   혹시 index.html에 widget-stage를
+   추가해둔 경우에도 정상 작동
+========================================= */
+
+.widget-stage {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
 }
