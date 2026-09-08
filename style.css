@@ -1,0 +1,636 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: transparent;
+}
+
+
+/* =========================
+   전체 외곽 : 다크 우드
+========================= */
+
+.clock {
+    position: relative;
+
+    width: 360px;
+    height: 360px;
+
+    padding: 24px;
+
+    border-radius: 50%;
+
+    /*
+        어두운 목재 레이어
+        결이 완전히 사실적일 필요는 없고
+        "검정이 아니라 나무"로 읽히게
+    */
+    background:
+
+        radial-gradient(
+            circle at 28% 22%,
+            rgba(255,255,255,0.14),
+            transparent 24%
+        ),
+
+        repeating-linear-gradient(
+            108deg,
+            rgba(255,255,255,0.018) 0px,
+            rgba(255,255,255,0.018) 2px,
+            rgba(0,0,0,0.04) 3px,
+            rgba(0,0,0,0.04) 7px
+        ),
+
+        radial-gradient(
+            circle at 50% 45%,
+            #34251f 0%,
+            #211713 58%,
+            #100b09 83%,
+            #080605 100%
+        );
+
+    box-shadow:
+
+        /* 아래로 떨어지는 그림자 */
+        0 20px 32px rgba(0,0,0,0.30),
+
+        0 5px 9px rgba(0,0,0,0.22),
+
+        /* 나무 프레임 볼륨 */
+        inset 5px 5px 7px rgba(255,255,255,0.07),
+
+        inset -7px -8px 12px rgba(0,0,0,0.55);
+
+}
+
+
+/* 나무에 얹힌 아주 얇은 유광 */
+.clock::before {
+    content: "";
+
+    position: absolute;
+
+    left: 34px;
+    top: 15px;
+
+    width: 220px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.10),
+        rgba(255,255,255,0)
+    );
+
+    transform: rotate(-9deg);
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   안쪽 금속 테두리
+========================= */
+
+.metal-ring {
+    width: 100%;
+    height: 100%;
+
+    padding: 8px;
+
+    border-radius: 50%;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #dfd9ca 0%,
+            #8f897e 18%,
+            #ece7dc 35%,
+            #77736c 55%,
+            #d3cec2 78%,
+            #68645e 100%
+        );
+
+    box-shadow:
+
+        0 0 2px rgba(0,0,0,0.8),
+
+        inset 1px 1px 2px rgba(255,255,255,0.8),
+
+        inset -2px -2px 3px rgba(0,0,0,0.5);
+}
+
+
+/* =========================
+   시계 문자판
+========================= */
+
+.face {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle at 45% 38%,
+            rgba(255,255,255,0.6),
+            transparent 53%
+        ),
+
+        radial-gradient(
+            circle at center,
+            #f2eddb 0%,
+            #eee7d2 68%,
+            #ddd4bd 100%
+        );
+
+    box-shadow:
+
+        inset 0 0 15px rgba(70,55,35,0.28),
+
+        inset 0 0 2px rgba(0,0,0,0.6);
+}
+
+
+/* =========================
+   60개 분 눈금
+========================= */
+
+.minute-ticks {
+    position: absolute;
+
+    inset: 15px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+
+            rgba(36,32,27,0.85) 0deg,
+            rgba(36,32,27,0.85) 0.8deg,
+
+            transparent 0.8deg,
+            transparent 6deg
+        );
+
+    /*
+        중앙을 뚫어서
+        가장자리 눈금만 남김
+    */
+    -webkit-mask:
+        radial-gradient(
+            circle,
+            transparent 0%,
+            transparent 87%,
+            #000 87.5%,
+            #000 100%
+        );
+
+    mask:
+        radial-gradient(
+            circle,
+            transparent 0%,
+            transparent 87%,
+            #000 87.5%,
+            #000 100%
+        );
+
+    opacity: 0.65;
+
+    z-index: 2;
+}
+
+
+/* =========================
+   12개 정시 눈금
+========================= */
+
+.hour-ticks {
+    position: absolute;
+
+    inset: 12px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+
+            #25211c 0deg,
+            #25211c 2deg,
+
+            transparent 2deg,
+            transparent 30deg
+        );
+
+    -webkit-mask:
+        radial-gradient(
+            circle,
+            transparent 0%,
+            transparent 82%,
+            #000 82.5%,
+            #000 100%
+        );
+
+    mask:
+        radial-gradient(
+            circle,
+            transparent 0%,
+            transparent 82%,
+            #000 82.5%,
+            #000 100%
+        );
+
+    opacity: 0.9;
+
+    z-index: 3;
+}
+
+
+/* =========================
+   숫자
+========================= */
+
+.number {
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    /*
+        웹폰트 없이도 최대한 클래식하게
+    */
+    font-family:
+        Baskerville,
+        "Palatino Linotype",
+        "Book Antiqua",
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 37px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    color: #27231f;
+
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.35);
+
+    z-index: 5;
+}
+
+
+/* 조금 더 바깥쪽에 배치 */
+
+.n12 { left: 50%; top: 13%; }
+
+.n1  { left: 70%; top: 18%; }
+
+.n2  { left: 83%; top: 32%; }
+
+.n3  { left: 88%; top: 50%; }
+
+.n4  { left: 83%; top: 68%; }
+
+.n5  { left: 69%; top: 82%; }
+
+.n6  { left: 50%; top: 87%; }
+
+.n7  { left: 31%; top: 82%; }
+
+.n8  { left: 17%; top: 68%; }
+
+.n9  { left: 12%; top: 50%; }
+
+.n10 { left: 17%; top: 32%; }
+
+.n11 { left: 30%; top: 18%; }
+
+
+/* =========================
+   Areum 브랜드
+========================= */
+
+.brand {
+    position: absolute;
+
+    left: 50%;
+    top: 34%;
+
+    transform: translateX(-50%);
+
+    width: 120px;
+
+    text-align: center;
+
+    color: rgba(44,39,33,0.70);
+
+    z-index: 5;
+}
+
+
+.brand-name {
+    font-family:
+        Baskerville,
+        Georgia,
+        serif;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    letter-spacing: 0.4px;
+}
+
+
+.brand-sub {
+    margin-top: 3px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 5px;
+
+    letter-spacing: 2.2px;
+
+    opacity: 0.72;
+}
+
+
+/* =========================
+   시침 / 분침
+========================= */
+
+.hand {
+    position: absolute;
+
+    left: 50%;
+    bottom: 50%;
+
+    transform-origin: 50% 100%;
+
+    transform:
+        translateX(-50%)
+        rotate(0deg);
+
+    z-index: 8;
+
+    /*
+        위로 갈수록 조금 좁아지는 형태
+    */
+    clip-path:
+        polygon(
+            36% 0%,
+            64% 0%,
+            82% 84%,
+            72% 100%,
+            28% 100%,
+            18% 84%
+        );
+
+    background:
+        linear-gradient(
+            to right,
+            #181614,
+            #36312b 50%,
+            #151311
+        );
+
+    filter:
+        drop-shadow(
+            2px 3px 1.5px rgba(0,0,0,0.25)
+        );
+}
+
+
+/* 짧고 조금 두꺼운 시침 */
+.hour-hand {
+    width: 15px;
+    height: 72px;
+}
+
+
+/* 길고 가는 분침 */
+.minute-hand {
+    width: 10px;
+    height: 105px;
+}
+
+
+/* =========================
+   초침
+========================= */
+
+.second-hand {
+    position: absolute;
+
+    left: 50%;
+    bottom: 50%;
+
+    width: 2px;
+    height: 119px;
+
+    transform-origin: 50% 100%;
+
+    transform:
+        translateX(-50%)
+        rotate(0deg);
+
+    background:
+        linear-gradient(
+            to right,
+            #594d35,
+            #a28b54,
+            #594d35
+        );
+
+    box-shadow:
+        1px 2px 1px rgba(0,0,0,0.18);
+
+    z-index: 9;
+}
+
+
+/* 중심 반대쪽 초침 꼬리 */
+.second-tail {
+    position: absolute;
+
+    width: 2px;
+    height: 32px;
+
+    left: 0;
+    top: 100%;
+
+    background:
+        linear-gradient(
+            to right,
+            #594d35,
+            #a28b54,
+            #594d35
+        );
+}
+
+
+/* =========================
+   중심 금속 축
+========================= */
+
+.center-pin {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 16px;
+    height: 16px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle at 32% 28%,
+            #dbc783,
+            #8b773f 35%,
+            #312a19 72%,
+            #15120c 100%
+        );
+
+    box-shadow:
+        0 2px 3px rgba(0,0,0,0.45);
+
+    z-index: 12;
+}
+
+
+/* =========================
+   유리판 전체
+========================= */
+
+.glass-shade {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+
+        linear-gradient(
+            115deg,
+            rgba(255,255,255,0.10),
+            transparent 35%,
+            transparent 62%,
+            rgba(255,255,255,0.04)
+        );
+
+    box-shadow:
+
+        inset 10px 7px 16px rgba(255,255,255,0.05),
+
+        inset -8px -10px 15px rgba(0,0,0,0.05);
+
+    pointer-events: none;
+
+    z-index: 15;
+}
+
+
+/* =========================
+   형광등 유리 반사
+========================= */
+
+.light-reflection {
+    position: absolute;
+
+    height: 17px;
+
+    border-radius: 3px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,245,0.27),
+            rgba(255,255,245,0.08)
+        );
+
+    filter: blur(0.5px);
+
+    pointer-events: none;
+
+    z-index: 16;
+}
+
+
+.light-one {
+    width: 96px;
+
+    left: 16px;
+    top: 94px;
+
+    transform: rotate(2deg);
+}
+
+
+.light-two {
+    width: 76px;
+
+    right: 22px;
+    top: 121px;
+
+    transform: rotate(-1deg);
+}
+
+
+/* =========================
+   노을빛 반사
+========================= */
+
+.sunset-reflection {
+    position: absolute;
+
+    width: 190px;
+    height: 135px;
+
+    left: -55px;
+    bottom: -20px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(210,132,66,0.11),
+            rgba(190,103,48,0.045) 45%,
+            transparent 72%
+        );
+
+    transform: rotate(-20deg);
+
+    pointer-events: none;
+
+    z-index: 14;
+}
