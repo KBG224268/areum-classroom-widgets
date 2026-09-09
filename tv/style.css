@@ -245,69 +245,147 @@ body {
 
 
 /* =========================================
-   MESSAGE
+   EVENT LOG / OSD
 ========================================= */
 
-.message-area {
+.event-log {
     position: absolute;
 
-    left: 9%;
-    right: 9%;
+    left: 7%;
+    top: 29%;
 
-    top: 50%;
-
-    transform: translateY(-50%);
+    width: 68%;
 
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
 
-    gap: 4%;
+    gap: clamp(5px, 1.5vw, 9px);
 
-    z-index: 3;
-}
+    z-index: 4;
 
-
-.message-icon {
-    flex: 0 0 auto;
-
-    margin-top: 0.15em;
-
-    font-size: clamp(7px, 1.5vw, 10px);
-
-    color: rgba(245, 220, 150, 0.78);
-}
-
-
-.message {
-    min-width: 0;
+    /*
+        진짜 UI 박스처럼 보이지 않게
+        배경/테두리 없음
+    */
+    background: transparent;
 
     font-family:
+        "Courier New",
         "Malgun Gothic",
-        "Apple SD Gothic Neo",
-        sans-serif;
-
-    font-size: clamp(14px, 4vw, 22px);
-
-    font-weight: 400;
-
-    line-height: 1.55;
-
-    word-break: keep-all;
-
-    text-shadow:
-        0 0 5px rgba(230, 240, 210, 0.13);
-
-    transition:
-        opacity 0.45s ease,
-        transform 0.45s ease;
+        monospace;
 }
 
 
-/* 메시지가 사라질 때 */
-.message.hide {
+.log-line {
+    display: grid;
+
+    grid-template-columns:
+        clamp(34px, 9vw, 52px)
+        1fr;
+
+    gap: clamp(7px, 2vw, 13px);
+
+    align-items: baseline;
+
+    min-width: 0;
+
+    color: rgba(227, 235, 211, 0.62);
+
+    font-size:
+        clamp(8px, 2.1vw, 12px);
+
+    line-height: 1.45;
+
+    letter-spacing: 0.015em;
+
+    text-shadow:
+        0 0 3px rgba(220, 235, 205, 0.20);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+
+/* 시간 */
+.log-time {
+    color: rgba(221, 202, 144, 0.52);
+
+    font-size: 0.88em;
+
+    letter-spacing: 0.06em;
+}
+
+
+/* 메시지 */
+.log-text {
+    min-width: 0;
+
+    word-break: keep-all;
+}
+
+
+/* 오래된 로그는 거의 잔상 */
+.log-line:nth-last-child(5) {
+    opacity: 0.18;
+}
+
+.log-line:nth-last-child(4) {
+    opacity: 0.28;
+}
+
+.log-line:nth-last-child(3) {
+    opacity: 0.40;
+}
+
+.log-line:nth-last-child(2) {
+    opacity: 0.58;
+}
+
+
+/* 가장 최근 로그 */
+.log-line:last-child {
+    opacity: 0.84;
+}
+
+
+/* 새 로그가 들어올 때 */
+.log-line.log-enter {
     opacity: 0;
 
     transform: translateY(5px);
+
+    filter: blur(1px);
+}
+
+
+.log-line.log-visible {
+    opacity: 0.84;
+
+    transform: translateY(0);
+
+    filter: blur(0);
+}
+
+
+/* 희미한 OSD 번짐 */
+.event-log::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -10px;
+
+    background:
+        radial-gradient(
+            ellipse at 25% 55%,
+            rgba(170, 195, 158, 0.035),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    z-index: -1;
 }
 
 
