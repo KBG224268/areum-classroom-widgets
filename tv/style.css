@@ -1,0 +1,410 @@
+/* =========================================
+   AREUM CLASSROOM TV
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #191919;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================
+   TV BODY
+========================================= */
+
+.tv {
+    width: min(92vw, 520px);
+
+    aspect-ratio: 4 / 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.tv-frame {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        5.5%
+        6.5%
+        9%;
+
+    border-radius: 8% / 10%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #4a4845 0%,
+            #2e2d2b 28%,
+            #22211f 70%,
+            #161513 100%
+        );
+
+    box-shadow:
+        0 16px 28px rgba(0, 0, 0, 0.34),
+
+        inset 2px 2px 5px rgba(255, 255, 255, 0.11),
+
+        inset -5px -6px 10px rgba(0, 0, 0, 0.48);
+}
+
+
+/* 윗부분의 오래된 플라스틱 반사 */
+.tv-frame::before {
+    content: "";
+
+    position: absolute;
+
+    left: 8%;
+    top: 3%;
+
+    width: 60%;
+    height: 8%;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.10),
+            transparent
+        );
+
+    opacity: 0.55;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   CRT SCREEN
+========================================= */
+
+.screen {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 7% / 9%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #758077 0%,
+            #5f6962 58%,
+            #424944 100%
+        );
+
+    box-shadow:
+        inset 0 0 24px rgba(0, 0, 0, 0.56),
+
+        inset 0 0 6px rgba(0, 0, 0, 0.85),
+
+        0 1px 1px rgba(255, 255, 255, 0.10);
+
+    color: rgba(240, 243, 226, 0.90);
+
+    font-family:
+        "Courier New",
+        "Malgun Gothic",
+        monospace;
+}
+
+
+/* CRT 특유의 가장자리 어두움 */
+.screen::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    box-shadow:
+        inset 0 0 40px rgba(0, 0, 0, 0.42);
+
+    pointer-events: none;
+
+    z-index: 8;
+}
+
+
+/* =========================================
+   SCANLINES
+========================================= */
+
+.scanlines {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.025) 0px,
+            rgba(255, 255, 255, 0.025) 1px,
+
+            rgba(0, 0, 0, 0.055) 2px,
+            rgba(0, 0, 0, 0.055) 3px
+        );
+
+    opacity: 0.6;
+
+    pointer-events: none;
+
+    z-index: 7;
+}
+
+
+/* =========================================
+   GLASS REFLECTION
+========================================= */
+
+.glass-light {
+    position: absolute;
+
+    width: 48%;
+    height: 22%;
+
+    left: 5%;
+    top: 4%;
+
+    border-radius: 50%;
+
+    transform: rotate(-5deg);
+
+    background:
+        linear-gradient(
+            130deg,
+            rgba(255, 255, 255, 0.11),
+            transparent 70%
+        );
+
+    filter: blur(1px);
+
+    pointer-events: none;
+
+    z-index: 6;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.screen-header {
+    position: absolute;
+
+    left: 7%;
+    right: 7%;
+    top: 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 2%;
+
+    border-bottom:
+        1px solid rgba(235, 240, 220, 0.25);
+
+    font-size: clamp(8px, 2vw, 12px);
+
+    letter-spacing: 0.14em;
+
+    opacity: 0.70;
+
+    z-index: 3;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message-area {
+    position: absolute;
+
+    left: 9%;
+    right: 9%;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 4%;
+
+    z-index: 3;
+}
+
+
+.message-icon {
+    flex: 0 0 auto;
+
+    margin-top: 0.15em;
+
+    font-size: clamp(7px, 1.5vw, 10px);
+
+    color: rgba(245, 220, 150, 0.78);
+}
+
+
+.message {
+    min-width: 0;
+
+    font-family:
+        "Malgun Gothic",
+        "Apple SD Gothic Neo",
+        sans-serif;
+
+    font-size: clamp(14px, 4vw, 22px);
+
+    font-weight: 400;
+
+    line-height: 1.55;
+
+    word-break: keep-all;
+
+    text-shadow:
+        0 0 5px rgba(230, 240, 210, 0.13);
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease;
+}
+
+
+/* 메시지가 사라질 때 */
+.message.hide {
+    opacity: 0;
+
+    transform: translateY(5px);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.screen-footer {
+    position: absolute;
+
+    left: 7%;
+    bottom: 7%;
+
+    font-size: clamp(6px, 1.5vw, 9px);
+
+    letter-spacing: 0.24em;
+
+    opacity: 0.34;
+
+    z-index: 3;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.tv-brand {
+    position: absolute;
+
+    left: 50%;
+    bottom: 3.1%;
+
+    transform: translateX(-50%);
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: clamp(9px, 2vw, 13px);
+
+    font-style: italic;
+
+    letter-spacing: 0.04em;
+
+    color: rgba(220, 216, 204, 0.48);
+}
+
+
+/* =========================================
+   POWER LIGHT
+========================================= */
+
+.power-light {
+    position: absolute;
+
+    right: 7%;
+    bottom: 4%;
+
+    width: 1.5%;
+    aspect-ratio: 1;
+
+    min-width: 4px;
+
+    border-radius: 50%;
+
+    background: #b87f45;
+
+    box-shadow:
+        0 0 4px rgba(184, 127, 69, 0.40);
+}
+
+
+/* =========================================
+   짧은 CRT FLICKER
+========================================= */
+
+.screen.flash {
+    animation: crt-flash 0.22s ease;
+}
+
+
+@keyframes crt-flash {
+
+    0% {
+        filter: brightness(1);
+    }
+
+    25% {
+        filter: brightness(1.18);
+    }
+
+    45% {
+        filter: brightness(0.88);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
+}
