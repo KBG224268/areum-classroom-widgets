@@ -1,64 +1,154 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Areum Classroom TV</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
+
 
 <body>
 
-    <div class="tv">
+    <main class="tv">
 
         <div class="tv-frame">
 
+
+            <!-- =========================
+                 CRT SCREEN
+            ========================== -->
+
             <div class="screen">
 
-                <div class="scanlines"></div>
-                <div class="glass-light"></div>
 
-                <div class="screen-header">
-                    <span>AFTER SCHOOL</span>
-                    <span id="current-time">17:42</span>
-                </div>
+                <!-- 화면 질감 -->
+                <div
+                    class="scanlines"
+                    aria-hidden="true"
+                ></div>
 
-                <div class="event-log" id="event-log" aria-live="polite">
+                <div
+                    class="glass-light"
+                    aria-hidden="true"
+                ></div>
 
-                    <div class="log-line old">
-                        <span class="log-time">17:18</span>
-                        <span class="log-text">방과후 교실 상태 확인</span>
-                    </div>
+
+                <!-- =========================
+                     상단 상태 표시
+                ========================== -->
+
+                <header class="screen-header">
+
+                    <span class="screen-mode">
+                        AFTER SCHOOL
+                    </span>
+
+                    <time
+                        id="current-time"
+                        class="screen-time"
+                    >
+                        17:42
+                    </time>
+
+                </header>
+
+
+                <!-- =========================
+                     자동 이벤트 로그
+                ========================== -->
+
+                <section
+                    class="event-log"
+                    id="event-log"
+                    aria-live="polite"
+                    aria-label="교실 상태 기록"
+                >
 
                     <div class="log-line">
-                        <span class="log-time">17:24</span>
-                        <span class="log-text">복도 인원 감소</span>
-                    </div>
-                
-                    <div class="log-line newest">
-                        <span class="log-time">17:31</span>
-                        <span class="log-text">교실이 조용해졌습니다.</span>
-                    </div>
-                
-                </div>
 
-                <div class="screen-footer">
+                        <span class="log-time">
+                            17:18
+                        </span>
+
+                        <span class="log-text">
+                            방과후 교실 상태 확인
+                        </span>
+
+                    </div>
+
+
+                    <div class="log-line">
+
+                        <span class="log-time">
+                            17:24
+                        </span>
+
+                        <span class="log-text">
+                            복도 인원 감소
+                        </span>
+
+                    </div>
+
+
+                    <div class="log-line">
+
+                        <span class="log-time">
+                            17:31
+                        </span>
+
+                        <span class="log-text">
+                            교실이 조용해졌습니다.
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================
+                     하단 방송 시스템 표시
+                ========================== -->
+
+                <footer class="screen-footer">
                     AREUM SCHOOL BROADCAST
-                </div>
+                </footer>
+
 
             </div>
 
-            <div class="tv-brand">Areum</div>
 
-            <div class="power-light"></div>
+            <!-- =========================
+                 TV BODY DETAILS
+            ========================== -->
+
+            <div class="tv-brand">
+                Areum
+            </div>
+
+            <div
+                class="power-light"
+                aria-hidden="true"
+            ></div>
+
 
         </div>
 
-    </div>
+    </main>
+
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
