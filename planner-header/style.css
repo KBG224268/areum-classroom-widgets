@@ -1,7 +1,11 @@
+/* =========================================
+   AREUM PLANNER HEADER
+   Large Header Version
+========================================= */
+
 * {
     box-sizing: border-box;
 }
-
 
 html,
 body {
@@ -22,60 +26,119 @@ body {
 }
 
 
+/* =========================================
+   HEADER LAYOUT
+========================================= */
+
 .planner-header {
     width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: flex-start;
 
     padding:
-        8px
-        4px;
+        6%
+        7%;
 
     text-align: left;
 }
 
 
-/* 날짜 */
+/* =========================================
+   DATE
+========================================= */
 
 .date {
-    color: rgba(245, 240, 230, 0.88);
+    color:
+        rgba(247, 242, 232, 0.94);
 
     font-family:
+        Baskerville,
         Georgia,
         "Times New Roman",
         serif;
 
     font-size:
-        clamp(15px, 3vw, 21px);
+        clamp(28px, 5.4vw, 46px);
+
+    font-weight:
+        600;
 
     letter-spacing:
-        0.035em;
+        0.045em;
 
     line-height:
-        1.4;
+        1.15;
+
+    text-shadow:
+        0 2px 5px
+        rgba(0, 0, 0, 0.28);
 }
 
 
-/* 명언 */
+/* =========================================
+   QUOTE
+========================================= */
 
 .quote {
     margin-top:
-        6px;
+        clamp(14px, 2.3vw, 24px);
 
-    color: rgba(220, 190, 150, 0.62);
+    color:
+        rgba(203, 155, 105, 0.78);
 
     font-family:
+        Baskerville,
         Georgia,
         "Times New Roman",
         serif;
 
     font-size:
-        clamp(11px, 2.2vw, 15px);
+        clamp(18px, 3.1vw, 27px);
 
     font-style:
         italic;
 
+    font-weight:
+        400;
+
     letter-spacing:
-        0.015em;
+        0.018em;
 
     line-height:
-        1.5;
+        1.45;
+
+    text-shadow:
+        0 1px 4px
+        rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================
+   아주 작은 장식선
+========================================= */
+
+.quote::before {
+    content: "";
+
+    display: block;
+
+    width:
+        clamp(42px, 7vw, 70px);
+
+    height: 1px;
+
+    margin-bottom:
+        clamp(10px, 1.8vw, 16px);
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(196, 139, 84, 0.55),
+            rgba(196, 139, 84, 0)
+        );
 }
