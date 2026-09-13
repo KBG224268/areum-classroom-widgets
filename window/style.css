@@ -1,0 +1,525 @@
+/* =========================================
+   AREUM GOLDEN HOUR WINDOW
+   Notion Embed Version
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   NOTION BACKGROUND
+========================================= */
+
+html,
+body {
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #191919;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================
+   MASTER SIZE
+
+   3:4 단일 창문
+========================================= */
+
+.window-widget {
+    --window-width:
+        min(72vw, 54vh, 360px);
+
+    width:
+        var(--window-width);
+
+    aspect-ratio:
+        3 / 4;
+
+    flex:
+        0 0 auto;
+}
+
+
+/* =========================================
+   OUTER WINDOW FRAME
+========================================= */
+
+.window-frame {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        calc(var(--window-width) * 0.052);
+
+    border-radius:
+        calc(var(--window-width) * 0.010);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(70, 64, 57, 0.14),
+            transparent 8%,
+            transparent 90%,
+            rgba(58, 52, 46, 0.18)
+        ),
+
+        linear-gradient(
+            145deg,
+            #d8d1c5 0%,
+            #c7beb1 28%,
+            #b5ac9f 68%,
+            #988f84 100%
+        );
+
+    box-shadow:
+
+        0
+        calc(var(--window-width) * 0.040)
+        calc(var(--window-width) * 0.070)
+        rgba(0, 0, 0, 0.34),
+
+        0
+        calc(var(--window-width) * 0.010)
+        calc(var(--window-width) * 0.017)
+        rgba(0, 0, 0, 0.22),
+
+        inset
+        calc(var(--window-width) * 0.004)
+        calc(var(--window-width) * 0.004)
+        calc(var(--window-width) * 0.010)
+        rgba(255, 255, 255, 0.40),
+
+        inset
+        calc(var(--window-width) * -0.010)
+        calc(var(--window-width) * -0.012)
+        calc(var(--window-width) * 0.020)
+        rgba(52, 46, 40, 0.20);
+}
+
+/* =========================================
+   INNER METAL GROOVE
+========================================= */
+
+.inner-frame {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        calc(var(--window-width) * 0.027);
+
+    border-radius:
+        calc(var(--window-width) * 0.005);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #8e867b 0%,
+            #c1b8ab 16%,
+            #d7d0c4 42%,
+            #b2a99d 100%
+        );
+
+    box-shadow:
+
+        inset
+        0
+        calc(var(--window-width) * 0.008)
+        calc(var(--window-width) * 0.013)
+        rgba(52, 47, 42, 0.34),
+
+        0
+        calc(var(--window-width) * 0.002)
+        calc(var(--window-width) * 0.003)
+        rgba(255, 255, 255, 0.22);
+}
+
+/* =========================================
+   GLASS / VIEW
+========================================= */
+
+.glass-view {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius:
+        calc(var(--window-width) * 0.006);
+
+    background: #d59a67;
+
+    box-shadow:
+
+        /*
+            유리가 프레임보다 안쪽에 들어간 느낌
+        */
+        inset
+        0 0
+        calc(var(--window-width) * 0.030)
+        rgba(30, 28, 24, 0.25),
+
+        inset
+        0 0
+        calc(var(--window-width) * 0.006)
+        rgba(0, 0, 0, 0.50);
+}
+
+
+/* =========================================
+   BASE ILLUSTRATION
+========================================= */
+
+.outside-view {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    /*
+        생성 이미지 비율이 정확히 3:4라
+        기본적으로 거의 그대로 보임.
+    */
+    object-position: center;
+
+    display: block;
+
+    transform: scale(1.012);
+}
+
+
+/* =========================================
+   GOLDEN HOUR GLASS TINT
+========================================= */
+
+.sunset-glow {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+
+        /*
+            왼쪽 아래 태양 방향에서 들어오는 황금빛
+        */
+        radial-gradient(
+            ellipse at 20% 60%,
+            rgba(255, 183, 91, 0.16),
+            transparent 48%
+        ),
+
+        /*
+            전체적으로 아주 약한 유리색
+        */
+        linear-gradient(
+            145deg,
+            rgba(255, 224, 177, 0.035),
+            rgba(132, 154, 143, 0.025)
+        );
+
+    z-index: 3;
+}
+
+
+/* =========================================
+   GLASS REFLECTION
+
+   교실 형광등/밝은 벽이
+   유리에 아주 약하게 비친 느낌
+========================================= */
+
+.glass-reflection {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    background:
+
+        /*
+            상단 길쭉한 반사
+        */
+        linear-gradient(
+            105deg,
+            transparent 4%,
+            rgba(255, 251, 235, 0.085) 17%,
+            rgba(255, 251, 235, 0.025) 33%,
+            transparent 46%
+        ),
+
+        /*
+            우측 유리의 희미한 실내 반사
+        */
+        radial-gradient(
+            ellipse at 105% 35%,
+            rgba(235, 237, 220, 0.075),
+            transparent 47%
+        );
+}
+
+
+/* =========================================
+   GLASS TEXTURE
+
+   거의 눈에 안 보이는 수준.
+========================================= */
+
+.glass-texture {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 6;
+
+    opacity: 0.30;
+
+    background:
+
+        radial-gradient(
+            circle at 22% 17%,
+            rgba(255, 255, 255, 0.12) 0,
+            rgba(255, 255, 255, 0.12)
+                calc(var(--window-width) * 0.002),
+
+            transparent
+                calc(var(--window-width) * 0.004)
+        ),
+
+        radial-gradient(
+            circle at 77% 62%,
+            rgba(255, 255, 255, 0.08) 0,
+            rgba(255, 255, 255, 0.08)
+                calc(var(--window-width) * 0.0016),
+
+            transparent
+                calc(var(--window-width) * 0.0038)
+        ),
+
+        linear-gradient(
+            118deg,
+            transparent 44%,
+            rgba(255, 255, 255, 0.025) 45%,
+            transparent 46%
+        );
+}
+
+
+/* =========================================
+   SUBTLE GLASS EDGE
+========================================= */
+
+.glass-view::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border:
+        calc(var(--window-width) * 0.003)
+        solid
+        rgba(44, 43, 38, 0.24);
+
+    border-radius: inherit;
+
+    box-shadow:
+
+        inset
+        calc(var(--window-width) * 0.010)
+        0
+        calc(var(--window-width) * 0.017)
+        rgba(0, 0, 0, 0.08),
+
+        inset
+        calc(var(--window-width) * -0.010)
+        0
+        calc(var(--window-width) * 0.017)
+        rgba(0, 0, 0, 0.08);
+
+    pointer-events: none;
+
+    z-index: 8;
+}
+
+
+/* =========================================
+   BOTTOM WINDOW SILL
+
+   학교 샷시 특유의 아래쪽 두꺼운 턱
+========================================= */
+
+.window-sill {
+    position: absolute;
+
+    left: 0.8%;
+    right: 0.8%;
+
+    bottom: 0;
+
+    height: 4.2%;
+
+    border-radius: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #d7d0c4 0%,
+            #bdb4a8 46%,
+            #978d82 100%
+        );
+
+    box-shadow:
+
+        0
+        calc(var(--window-width) * 0.004)
+        calc(var(--window-width) * 0.008)
+        rgba(0, 0, 0, 0.20),
+
+        inset
+        0
+        calc(var(--window-width) * 0.003)
+        calc(var(--window-width) * 0.004)
+        rgba(255, 255, 255, 0.38);
+
+    z-index: 12;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   FRAME HIGHLIGHT
+
+   노을이 창틀 한쪽을 물들이는 효과
+========================================= */
+
+.frame-highlight {
+    position: absolute;
+
+    left: 0;
+    top: 9%;
+
+    width: 7%;
+    height: 72%;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(206, 126, 63, 0.14) 38%,
+            rgba(194, 108, 48, 0.08) 74%,
+            transparent
+        );
+
+    filter:
+        blur(
+            calc(var(--window-width) * 0.008)
+        );
+
+    pointer-events: none;
+
+    z-index: 15;
+}
+
+/* =========================================
+   WINDOW MUNTINS
+   십자가 창살
+========================================= */
+
+.muntin {
+    position: absolute;
+
+    pointer-events: none;
+
+    z-index: 4;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ddd5c8 0%,
+            #c7beb2 26%,
+            #b4aa9e 68%,
+            #978d82 100%
+        );
+
+    box-shadow:
+        inset
+        calc(var(--window-width) * 0.0025)
+        calc(var(--window-width) * 0.0025)
+        calc(var(--window-width) * 0.005)
+        rgba(255, 255, 255, 0.42),
+
+        inset
+        calc(var(--window-width) * -0.004)
+        calc(var(--window-width) * -0.005)
+        calc(var(--window-width) * 0.008)
+        rgba(63, 56, 49, 0.18),
+
+        0
+        0
+        calc(var(--window-width) * 0.008)
+        rgba(0, 0, 0, 0.06);
+}
+
+
+/* 세로 샷시 */
+.muntin-vertical {
+    top: -1%;
+    bottom: -1%;
+
+    left: 50%;
+
+    width:
+        calc(var(--window-width) * 0.028);
+
+    transform:
+        translateX(-50%);
+}
+
+
+/* 가로 샷시
+   너무 정중앙보다 약간 위가
+   학교 창문 느낌이 더 남
+*/
+.muntin-horizontal {
+    left: -1%;
+    right: -1%;
+
+    top: 36%;
+
+    height:
+        calc(var(--window-width) * 0.024);
+}
