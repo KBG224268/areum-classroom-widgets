@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Areum Study Timer</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+    <main class="timer">
+
+        <div class="timer-body">
+
+
+            <!-- =========================
+                 LCD
+            ========================== -->
+
+            <section class="lcd">
+
+                <div class="lcd-top">
+
+                    <span class="alarm-mark">
+                        ♢
+                    </span>
+
+                    <span
+                        class="mode-display"
+                        id="mode-display"
+                    >
+                        COUNT DOWN
+                    </span>
+
+                </div>
+
+
+                <div class="digits-wrap">
+
+                    <!-- LCD 잔상 -->
+                    <div
+                        class="lcd-ghost"
+                        aria-hidden="true"
+                    >
+                        88:88:88
+                    </div>
+
+                    <!-- 실제 시간 -->
+                    <div
+                        class="digits"
+                        id="digits"
+                        aria-live="polite"
+                    >
+                        00:50:00
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 TOP BUTTONS
+            ========================== -->
+
+            <section class="controls">
+
+                <div class="control-column">
+
+                    <span class="button-label">
+                        HOUR
+                    </span>
+
+                    <button
+                        type="button"
+                        class="timer-button"
+                        id="hour-button"
+                        aria-label="한 시간 추가"
+                    ></button>
+
+                </div>
+
+
+                <div class="control-column">
+
+                    <span class="button-label">
+                        MIN
+                    </span>
+
+                    <button
+                        type="button"
+                        class="timer-button"
+                        id="minute-button"
+                        aria-label="1분 추가"
+                    ></button>
+
+                </div>
+
+
+                <div class="control-column">
+
+                    <span class="button-label">
+                        SEC
+                    </span>
+
+                    <button
+                        type="button"
+                        class="timer-button"
+                        id="second-button"
+                        aria-label="1초 추가"
+                    ></button>
+
+                </div>
+
+
+                <!-- =========================
+                     BOTTOM BUTTONS
+                ========================== -->
+
+                <div class="control-column">
+
+                    <span class="button-label">
+                        MODE
+                    </span>
+
+                    <button
+                        type="button"
+                        class="timer-button"
+                        id="mode-button"
+                        aria-label="카운트다운과 카운트업 전환"
+                    ></button>
+
+                </div>
+
+
+                <div class="control-column">
+
+                    <span class="button-label">
+                        CLEAR
+                    </span>
+
+                    <button
+                        type="button"
+                        class="timer-button"
+                        id="clear-button"
+                        aria-label="타이머 초기화"
+                    ></button>
+
+                </div>
+
+
+                <div class="control-column">
+
+                    <span class="button-label small-label">
+                        START/STOP
+                    </span>
+
+                    <button
+                        type="button"
+                        class="timer-button start-button"
+                        id="start-button"
+                        aria-label="타이머 시작 또는 정지"
+                    ></button>
+
+                </div>
+
+            </section>
+
+
+            <!-- 작은 브랜드 -->
+            <div class="timer-brand">
+                Areum
+            </div>
+
+
+            <!-- 플라스틱 반사 -->
+            <div
+                class="body-highlight"
+                aria-hidden="true"
+            ></div>
+
+        </div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

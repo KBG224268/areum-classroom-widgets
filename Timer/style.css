@@ -1,0 +1,585 @@
+/* =========================================
+   AREUM STUDY TIMER
+   Responsive Notion Embed Version
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   NOTION BACKGROUND
+========================================= */
+
+html,
+body {
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #191919;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================
+   MASTER SIZE
+========================================= */
+
+.timer {
+    --timer-width:
+        min(78vw, 68vh, 330px);
+
+    width:
+        var(--timer-width);
+
+    aspect-ratio:
+        0.84 / 1;
+
+    flex:
+        0 0 auto;
+}
+
+
+/* =========================================
+   TIMER BODY
+========================================= */
+
+.timer-body {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        12%
+        10%
+        10%;
+
+    border-radius:
+        18% / 14%;
+
+    background:
+
+        radial-gradient(
+            ellipse at 25% 7%,
+            rgba(255, 255, 255, 0.90),
+            transparent 29%
+        ),
+
+        linear-gradient(
+            145deg,
+            #fffdf9 0%,
+            #f7f3ed 42%,
+            #e8e2db 79%,
+            #d5cec6 100%
+        );
+
+    box-shadow:
+
+        0
+        calc(var(--timer-width) * 0.055)
+        calc(var(--timer-width) * 0.090)
+        rgba(0, 0, 0, 0.32),
+
+        0
+        calc(var(--timer-width) * 0.012)
+        calc(var(--timer-width) * 0.022)
+        rgba(0, 0, 0, 0.20),
+
+        inset
+        calc(var(--timer-width) * 0.007)
+        calc(var(--timer-width) * 0.007)
+        calc(var(--timer-width) * 0.015)
+        rgba(255, 255, 255, 0.88),
+
+        inset
+        calc(var(--timer-width) * -0.012)
+        calc(var(--timer-width) * -0.015)
+        calc(var(--timer-width) * 0.025)
+        rgba(110, 100, 90, 0.16);
+}
+
+
+/* 플라스틱 광택 */
+
+.body-highlight {
+    position: absolute;
+
+    left: 12%;
+    top: 3%;
+
+    width: 58%;
+    height: 9%;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.48),
+            transparent
+        );
+
+    opacity: 0.52;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   LCD
+========================================= */
+
+.lcd {
+    position: relative;
+
+    width: 100%;
+    height: 31%;
+
+    overflow: hidden;
+
+    border-radius:
+        5% / 10%;
+
+    background:
+
+        radial-gradient(
+            ellipse at 48% 38%,
+            rgba(182, 191, 176, 0.96),
+            rgba(139, 151, 137, 0.98) 72%,
+            rgba(112, 123, 112, 1) 100%
+        );
+
+    border:
+        calc(var(--timer-width) * 0.012)
+        solid
+        rgba(219, 215, 207, 0.90);
+
+    outline:
+        calc(var(--timer-width) * 0.006)
+        solid
+        rgba(75, 72, 68, 0.80);
+
+    box-shadow:
+
+        inset
+        0 0
+        calc(var(--timer-width) * 0.025)
+        rgba(0, 0, 0, 0.27),
+
+        0
+        calc(var(--timer-width) * 0.005)
+        calc(var(--timer-width) * 0.010)
+        rgba(0, 0, 0, 0.15);
+}
+
+
+/* LCD 반사 */
+
+.lcd::before {
+    content: "";
+
+    position: absolute;
+
+    left: 3%;
+    top: 2%;
+
+    width: 65%;
+    height: 24%;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.17),
+            transparent
+        );
+
+    pointer-events: none;
+
+    z-index: 5;
+}
+
+
+/* =========================================
+   LCD TOP INFO
+========================================= */
+
+.lcd-top {
+    position: absolute;
+
+    left: 7%;
+    right: 7%;
+    top: 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 4;
+
+    color:
+        rgba(28, 35, 31, 0.78);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        calc(var(--timer-width) * 0.033);
+
+    font-weight: 700;
+}
+
+
+.alarm-mark {
+    font-size: 0.9em;
+
+    opacity: 0.52;
+}
+
+
+.mode-display {
+    letter-spacing: -0.01em;
+}
+
+
+/* =========================================
+   LCD DIGITS
+========================================= */
+
+.digits-wrap {
+    position: absolute;
+
+    /*
+        기존보다 좌우 공간을 더 확보.
+        00:00:00 전체가 확실하게 들어가게 함.
+    */
+    left: 2%;
+    right: 2%;
+
+    bottom: 7%;
+
+    height: 62%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+.digits,
+.lcd-ghost {
+    position: absolute;
+
+    font-family:
+        "Courier New",
+        "Lucida Console",
+        monospace;
+
+    /*
+        기존 0.174 → 0.150
+        오른쪽 숫자 잘림 방지
+    */
+    font-size:
+        calc(var(--timer-width) * 0.150);
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    letter-spacing:
+        calc(var(--timer-width) * -0.006);
+
+    font-variant-numeric:
+        tabular-nums;
+
+    white-space: nowrap;
+}
+
+
+.lcd-ghost {
+    color:
+        rgba(28, 39, 34, 0.055);
+
+    user-select: none;
+}
+
+
+.digits {
+    color: #18201c;
+
+    text-shadow:
+        calc(var(--timer-width) * 0.002)
+        calc(var(--timer-width) * 0.003)
+        0
+        rgba(0, 0, 0, 0.12);
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   FINISHED EFFECT
+========================================= */
+
+.lcd.finished {
+    animation:
+        lcd-finish
+        0.75s
+        ease-in-out
+        3;
+}
+
+
+@keyframes lcd-finish {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.23);
+    }
+}
+
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls {
+    width: 100%;
+
+    margin-top: 11%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    row-gap:
+        calc(var(--timer-width) * 0.052);
+
+    column-gap:
+        calc(var(--timer-width) * 0.030);
+}
+
+
+.control-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 0;
+}
+
+
+/* =========================================
+   LABELS
+========================================= */
+
+.button-label {
+    margin-bottom:
+        calc(var(--timer-width) * 0.018);
+
+    color: #242220;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        calc(var(--timer-width) * 0.047);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: 0.015em;
+
+    white-space: nowrap;
+}
+
+
+.small-label {
+    font-size:
+        calc(var(--timer-width) * 0.038);
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.timer-button {
+    appearance: none;
+
+    width:
+        calc(var(--timer-width) * 0.205);
+
+    height:
+        calc(var(--timer-width) * 0.125);
+
+    border: 0;
+
+    border-radius:
+        45% / 50%;
+
+    cursor: pointer;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #fffefa 0%,
+            #f1ece6 48%,
+            #d9d2cb 100%
+        );
+
+    box-shadow:
+
+        0
+        calc(var(--timer-width) * 0.012)
+        calc(var(--timer-width) * 0.018)
+        rgba(65, 56, 49, 0.25),
+
+        inset
+        calc(var(--timer-width) * 0.006)
+        calc(var(--timer-width) * 0.005)
+        calc(var(--timer-width) * 0.009)
+        rgba(255, 255, 255, 0.90),
+
+        inset
+        calc(var(--timer-width) * -0.006)
+        calc(var(--timer-width) * -0.008)
+        calc(var(--timer-width) * 0.012)
+        rgba(117, 103, 91, 0.18);
+
+    transition:
+        transform 0.08s ease,
+        box-shadow 0.08s ease,
+        filter 0.15s ease;
+}
+
+
+.timer-button:hover {
+    filter: brightness(1.025);
+}
+
+
+.timer-button:active {
+    transform:
+        translateY(
+            calc(var(--timer-width) * 0.008)
+        );
+
+    box-shadow:
+
+        0
+        calc(var(--timer-width) * 0.003)
+        calc(var(--timer-width) * 0.007)
+        rgba(65, 56, 49, 0.21),
+
+        inset
+        calc(var(--timer-width) * 0.006)
+        calc(var(--timer-width) * 0.009)
+        calc(var(--timer-width) * 0.014)
+        rgba(100, 89, 80, 0.15);
+}
+
+
+.timer-button:disabled {
+    cursor: default;
+
+    opacity: 0.46;
+
+    filter: saturate(0.7);
+}
+
+
+.timer-button:focus-visible {
+    outline:
+        calc(var(--timer-width) * 0.007)
+        solid
+        rgba(130, 113, 90, 0.40);
+
+    outline-offset:
+        calc(var(--timer-width) * 0.008);
+}
+
+
+.start-button {
+    background:
+
+        linear-gradient(
+            145deg,
+            #fffdf8 0%,
+            #eee9e1 46%,
+            #d4ccc3 100%
+        );
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.timer-brand {
+    position: absolute;
+
+    left: 50%;
+    bottom: 3%;
+
+    transform:
+        translateX(-50%);
+
+    font-family:
+        Baskerville,
+        Georgia,
+        serif;
+
+    font-size:
+        calc(var(--timer-width) * 0.040);
+
+    font-style: italic;
+
+    color:
+        rgba(93, 83, 74, 0.38);
+
+    letter-spacing:
+        0.025em;
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .timer-button {
+        transition: none;
+    }
+
+    .lcd.finished {
+        animation: none;
+    }
+}
